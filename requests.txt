@@ -1,0 +1,49 @@
+
+
+
+звонки возможно совершать только на сотовые телефоны России (7 *** *** ** **) если на другие то необходимо поменять ограничения в базе
+
+зарегестрироваться
+
+curl http://127.0.0.1:8000/auth/register/ -X POST -H "Content-Type: application/json" -d '{"username": "ttt", "password": "test", "first_name": "f_name", "last_name": "l_name", "email": "tt@tt.ru"}'
+
+
+получить токен для зарегестрированного пользователя если просрочен
+
+curl http://127.0.0.1:8000/auth/login/ -X POST -H "Content-Type: application/json" -d '{"username": "ttt", "password": "test"}'
+
+
+обновить токен (если просрочен) токен протухает через settings.ACCESS_TOKEN_LIFETIME 50 минут
+
+curl http://127.0.0.1:8000/auth/refresh/ -X POST -H "Content-Type: application/json" -H "Authorization: Bearer eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg3NDMyODAyLCJpYXQiOjE2ODc0Mjk4MDIsImp0aSI6IjExNDUyMTk2MzIwZTQ2MDVhNTVhNTUyZjNjNmM2ODIzIiwidXNlcl9pZCI6Mn0.h0GGRZdJpgXtlQaX4OSEb0636fvZyP_kUkYv2-Hkj6I" -d '{"refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg3Njg1MzIzLCJpYXQiOjE2ODc2ODIzMjMsImp0aSI6ImZlMjZmMmU0OGUzOTRjZWY4Y2M3MTYwNTRlMjhmMWIwIiwidXNlcl9pZCI6MX0.wIO9UqNrcTPRE091JD51v4slCQxsi6ZH4mugL2kPNZQ"}'
+
+
+создать новый проект
+
+curl http://127.0.0.1:8000/api/v1/new_project/ -X POST -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg3Njg1MzIzLCJpYXQiOjE2ODc2ODIzMjMsImp0aSI6ImZlMjZmMmU0OGUzOTRjZWY4Y2M3MTYwNTRlMjhmMWIwIiwidXNlcl9pZCI6MX0.wIO9UqNrcTPRE091JD51v4slCQxsi6ZH4mugL2kPNZQ" -d '{"title": "titlesd_prdfdfdfojecmkt", "description": "description_prodffdject"}'
+
+
+
+показать все проекты пользователя( если админ то показать все проекты)
+
+curl http://127.0.0.1:8000/api/v1/all_projects/ -X GET -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg3Njg1MzIzLCJpYXQiOjE2ODc2ODIzMjMsImp0aSI6ImZlMjZmMmU0OGUzOTRjZWY4Y2M3MTYwNTRlMjhmMWIwIiwidXNlcl9pZCI6MX0.wIO9UqNrcTPRE091JD51v4slCQxsi6ZH4mugL2kPNZQ"
+
+
+добавление аудиофайла к проекту
+
+curl -X POST -H "Content-Type:multipart/form-data"  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg3Njg1MzIzLCJpYXQiOjE2ODc2ODIzMjMsImp0aSI6ImZlMjZmMmU0OGUzOTRjZWY4Y2M3MTYwNTRlMjhmMWIwIiwidXNlcl9pZCI6MX0.wIO9UqNrcTPRE091JD51v4slCQxsi6ZH4mugL2kPNZQ" -F "file=@/home/main/Documents/tz_call/1_source.mp3;type=image/jpeg" http://127.0.0.1:8000/api/v1/upload_file/
+
+
+добавление xlsx файла
+
+curl -X POST -H "Content-Type:multipart/form-data"  -F "file=@/home/main/Documents/tz_call/1_phones.xlsx;type=image/jpeg" http://127.0.0.1:8000/api/v1/add_phones/ -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg3NTg3ODMyLCJpYXQiOjE2ODc1ODQ4MzIsImp0aSI6IjM0MjYzMmM1YTEwNTRiZmM4NTk2MWU5Y2I4M2JjNWJmIiwidXNlcl9pZCI6MX0.GcK9HNYuqIRtA87YYDU7dEnufXQl8yvr2JkC5hiq4mY"
+
+информация о проекте
+
+curl http://127.0.0.1:8000/api/v1/check_project/1 -X GET -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg3NTg3ODMyLCJpYXQiOjE2ODc1ODQ4MzIsImp0aSI6IjM0MjYzMmM1YTEwNTRiZmM4NTk2MWU5Y2I4M2JjNWJmIiwidXNlcl9pZCI6MX0.GcK9HNYuqIRtA87YYDU7dEnufXQl8yvr2JkC5hiq4mY"
+
+
+старт обзвона необходима настройка sip в папке sip
+
+curl http://127.0.0.1:8000/api/v1/run_project/1 -X GET -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg3NTkxMjgxLCJpYXQiOjE2ODc1ODgyODEsImp0aSI6ImEyNTY1ODkyZmI5MTQ0YmFiMmQxNzk1NjU4YTU4YzlkIiwidXNlcl9pZCI6MX0.e7ULXxTBcPSdqlh3md1HGS5IFLuIgczwkWSbLHKnUW0"
+
